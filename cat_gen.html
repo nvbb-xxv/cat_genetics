@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Genetics Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f0f0f0; }
+        h1 { text-align: center; }
+        .container { max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        label { display: block; margin-top: 10px; }
+        input { width: 100%; padding: 5px; margin-top: 5px; }
+        button { margin-top: 20px; padding: 10px; width: 100%; background: #333; color: #fff; border: none; cursor: pointer; }
+        pre { background: #eee; padding: 10px; margin-top: 20px; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Cat Genetics Generator</h1>
+    <form id="geneticsForm">
+        <h3>MOTHER</h3>
+        <label>Orange 1: <input type="text" name="orange1m" required></label>
+        <label>Orange 2: <input type="text" name="orange2m" required></label>
+        <label>Base 1: <input type="text" name="base1m" required></label>
+        <label>Base 2: <input type="text" name="base2m" required></label>
+        <label>Dilution 1: <input type="text" name="dilution1m" required></label>
+        <label>Dilution 2: <input type="text" name="dilution2m" required></label>
+        <label>Agouti 1: <input type="text" name="agouti1m" required></label>
+        <label>Agouti 2: <input type="text" name="agouti2m" required></label>
+        <label>Fur length 1: <input type="text" name="fur1m" required></label>
+        <label>Fur length 2: <input type="text" name="fur2m" required></label>
+        <label>Colorpoint 1: <input type="text" name="color1m" required></label>
+        <label>Colorpoint 2: <input type="text" name="color2m" required></label>
+        <label>Tabby 1: <input type="text" name="mc1m" required></label>
+        <label>Tabby 2: <input type="text" name="mc2m" required></label>
+        <label>Wideband 1: <input type="text" name="wb1m" required></label>
+        <label>Wideband 2: <input type="text" name="wb2m" required></label>
+        <label>Ticked 1: <input type="text" name="ticked1m" required></label>
+        <label>Ticked 2: <input type="text" name="ticked2m" required></label>
+        <label>White spotting 1: <input type="text" name="white1m" required></label>
+        <label>White spotting 2: <input type="text" name="white2m" required></label>
+        <label>Silver 1: <input type="text" name="silver1m" required></label>
+        <label>Silver 2: <input type="text" name="silver2m" required></label>
+        <label>Full white 1: <input type="text" name="fullw1m" required></label>
+        <label>Full white 2: <input type="text" name="fullw2m" required></label>
+        <label>Spotting? (1 or 0): <input type="text" name="spottingm" required></label>
+
+        <h3>FATHER</h3>
+        <label>Orange: <input type="text" name="orange1f" required></label>
+        <label>Base 1: <input type="text" name="base1f" required></label>
+        <label>Base 2: <input type="text" name="base2f" required></label>
+        <label>Dilution 1: <input type="text" name="dilution1f" required></label>
+        <label>Dilution 2: <input type="text" name="dilution2f" required></label>
+        <label>Agouti 1: <input type="text" name="agouti1f" required></label>
+        <label>Agouti 2: <input type="text" name="agouti2f" required></label>
+        <label>Fur length 1: <input type="text" name="fur1f" required></label>
+        <label>Fur length 2: <input type="text" name="fur2f" required></label>
+        <label>Colorpoint 1: <input type="text" name="color1f" required></label>
+        <label>Colorpoint 2: <input type="text" name="color2f" required></label>
+        <label>Tabby 1: <input type="text" name="mc1f" required></label>
+        <label>Tabby 2: <input type="text" name="mc2f" required></label>
+        <label>Wideband 1: <input type="text" name="wb1f" required></label>
+        <label>Wideband 2: <input type="text" name="wb2f" required></label>
+        <label>Ticked 1: <input type="text" name="ticked1f" required></label>
+        <label>Ticked 2: <input type="text" name="ticked2f" required></label>
+        <label>White spotting 1: <input type="text" name="white1f" required></label>
+        <label>White spotting 2: <input type="text" name="white2f" required></label>
+        <label>Silver 1: <input type="text" name="silver1f" required></label>
+        <label>Silver 2: <input type="text" name="silver2f" required></label>
+        <label>Full white 1: <input type="text" name="fullw1f" required></label>
+        <label>Full white 2: <input type="text" name="fullw2f" required></label>
+        <label>Spotting? (1 or 0): <input type="text" name="spottingf" required></label>
+
+        <label>How many kits? <input type="number" name="amount" min="1" required></label>
+
+        <button type="button" onclick="generateKits()">Generate Kits</button>
+    </form>
+
+    <pre id="output"></pre>
+</div>
+
+<script>
+    function randomPick(a, b) {
+        return Math.random() < 0.5 ? a : b;
+    }
+
+    function generateKits() {
+        const form = document.forms['geneticsForm'];
+        const data = Object.fromEntries(new FormData(form));
+        const output = [];
+        const amount = parseInt(data.amount);
+
+        for (let i = 1; i <= amount; i++) {
+            output.push(`KIT ${i}:`);
+            output.push(`Orange: ${randomPick('X^' + data.orange1m, 'X^' + data.orange2m)}/${randomPick('X^' + data.orange1f, 'Y')}`);
+            output.push(`Base: ${randomPick(data.base1m, data.base2m)}/${randomPick(data.base1f, data.base2f)}`);
+            output.push(`Dilution: ${randomPick(data.dilution1m, data.dilution2m)}/${randomPick(data.dilution1f, data.dilution2f)}`);
+            output.push(`Agouti: ${randomPick(data.agouti1m, data.agouti2m)}/${randomPick(data.agouti1f, data.agouti2f)}`);
+            output.push(`Fur length: ${randomPick(data.fur1m, data.fur2m)}/${randomPick(data.fur1f, data.fur2f)}`);
+            output.push(`Colorpoint: ${randomPick(data.color1m, data.color2m)}/${randomPick(data.color1f, data.color2f)}`);
+            output.push(`Tabby: ${randomPick(data.mc1m, data.mc2m)}/${randomPick(data.mc1f, data.mc2f)}`);
+            output.push(`Wideband: ${randomPick(data.wb1m, data.wb2m)}/${randomPick(data.wb1f, data.wb2f)}`);
+            output.push(`Ticked: ${randomPick(data.ticked1m, data.ticked2m)}/${randomPick(data.ticked1f, data.ticked2f)}`);
+            output.push(`White spotting: ${randomPick(data.white1m, data.white2m)}/${randomPick(data.white1f, data.white2f)}`);
+            output.push(`Silver: ${randomPick(data.silver1m, data.silver2m)}/${randomPick(data.silver1f, data.silver2f)}`);
+            output.push(`Full white: ${randomPick(data.fullw1m, data.fullw2m)}/${randomPick(data.fullw1f, data.fullw2f)}`);
+            output.push(`Spotting (1=present, 0=absent): ${randomPick(data.spottingm, data.spottingf)}`);
+            output.push(``);
+        }
+        document.getElementById('output').innerText = output.join('\n');
+    }
+</script>
+
+</body>
+</html>
